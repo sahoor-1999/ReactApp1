@@ -1,0 +1,24 @@
+.dark-border-checkbox {
+    border: 2px solid black; /* Dark black border */
+    appearance: none; /* Remove default styling */
+    width: 20px; /* Adjust the width */
+    height: 20px; /* Adjust the height */
+    border-radius: 4px; /* Optional: rounded corners */
+  }
+  
+  .dark-border-checkbox:checked {
+    background-color: black; /* Optional: Dark black background when checked */
+    border-color: white; /* Keep border dark black when checked */
+    color: #fff; /* Optional: Change checkmark color to white */
+  }
+  
+  Add styles to show a checkmark when checked
+  .dark-border-checkbox:checked::before {
+    /* Unicode for checkmark */
+    display: block;
+    text-align: center;
+    color: black; /* Checkmark color */
+    font-size: 14px; /* Adjust the size of the checkmark */
+    line-height: 20px; /* Center the checkmark vertically */
+  }
+  
