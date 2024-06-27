@@ -1,10 +1,11 @@
 import "./App.css";
 import Alert from "./components/Alert";
-// import About from "./components/About";
+import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import React, { useState } from "react";
 
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 function App() {
 
@@ -39,13 +40,18 @@ function App() {
 
   return (
     <>
+      <Router>
         <Navbar title="Text-Utils" aboutUs="About Us" home="Home" mode={mode} modeValue={modeValue} changeMode={toggleMode}/>
         
         <div className="container">
-          <TextForm header="Enter the text to analyze" mode={mode} showAlert={showAlert}/>
-          {/* <About/> */}
+        <Routes>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/" element={<TextForm header="Enter the text to analyze" mode={mode} showAlert={showAlert}/>}></Route>
+        </Routes>
+          
         </div>
         <Alert alert={alert} />
+          </Router>
     </>
   );
 }
