@@ -13,11 +13,13 @@ export default function TextForm(props,{ header = "Set the header" }) {
   const handelUpClick = () => {
     console.log("Update changes");
     setText(text.toUpperCase());
+    props.showAlert("Converted into upper case.", "success");
   };
 
   const handelLoClick = () => {
     console.log("Converted to lower case");
     setText(text.toLowerCase());
+    props.showAlert("Converted into lower case.", "success");
   };
 
   const handelClearClick = () => {
@@ -25,6 +27,7 @@ export default function TextForm(props,{ header = "Set the header" }) {
     setText('');
     setEmails([]);
     setMessage('');
+    props.showAlert("Clear text.", "success");
     console.log("Clear done");
   };
 
@@ -39,9 +42,10 @@ export default function TextForm(props,{ header = "Set the header" }) {
     setEmails(emailList);
     if (emailList.length > 0) {
       setMessage('');
+      props.showAlert("Email fatched from the text.", "success");
       console.log("Emails fetched:", emailList);
     } else {
-      setMessage('Email not found from the text');
+      props.showAlert("Email not found from the text.", "danger");
       console.log("No emails found");
     }
   };
@@ -50,45 +54,56 @@ export default function TextForm(props,{ header = "Set the header" }) {
       var text = document.getElementById("myBox")
       text.select();
       navigator.clipboard.writeText(text.value)
+      props.showAlert("Cliped to clipboard!", "success");
     }
 
     const handelExtraSpace = () => {
-      var rm_text = text.split(/ +/);
-      setText(rm_text.join(" "));
-      console.log("extra space remove")
+      // Count the spaces
+    const spaceCount = (text.match(/ /g) || []).length;
+      // Remove extra spaces
+      if(spaceCount > 1 ){
+        var rm_text = text.split(/ +/);
+        setText(rm_text.join(" "));
+        props.showAlert("Remove extra space.","success")
+        console.log("extra space remove")
+      }else{
+        setText(text);
+        props.showAlert("No extra space found.","info")
+      }
     }
   return (
     <>
-      <div className="container">
+      <div className="container" >
         <h1 style={{color:props.mode==='dark'?'white':'black'}}>{header}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
             id="myBox"
-            rows="10"
+            rows="7"
             value={text}
-            style={{backgroundColor:props.mode==='dark'?'black':'light', color:props.mode==='dark'?'white':'black'}}
+            style={{backgroundColor:props.mode==='dark'?'black':'white', color:props.mode==='dark'?'white':'black'}}
             onChange={handelOnChange}
           ></textarea>
-          <button className="btn btn-primary btn-sm my-2" onClick={handelUpClick}>
+          <div className="container my-2"  >
+          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelUpClick}>
             Convert to Upper case
           </button>
-          <button className="btn btn-primary btn-sm mx-1" onClick={handelLoClick}>
+          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelLoClick}>
             Convert to Lower case
           </button>
-          <button className="btn btn-primary btn-sm " onClick={handelExtraSpace}>
+          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelExtraSpace}>
             Remove Extra Space
           </button>
-          <button className="btn btn-primary btn-sm mx-1 " onClick={handelClearClick}>
+          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelClearClick}>
             Clear Text
           </button>
-          <button className="btn btn-primary btn-sm" onClick={handelEmailFatch}>
+          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelEmailFatch}>
             Fetch Email
           </button>
-          <button className="btn btn-primary btn-sm mx-1" onClick={handelCopyText}>
+          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelCopyText}>
             Copy All
           </button>
-          
+          </div>
         </div>
       </div>
 
