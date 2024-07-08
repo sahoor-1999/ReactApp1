@@ -137,7 +137,7 @@ export default function TextForm(props,{ header = "Set the header" }) {
       <div className="container">
         <h5 style={{color:props.mode==='dark'?'white':'black'}}>Text Details</h5>
         <p style={{color:props.mode==='dark'?'yellow':'black'}}>
-          {text.split(" ").filter((word) => {return word.length !==0}).length} word {" "}
+          {text.split(/\s+/).filter((word) => {return word.length !==0}).length} word {" "}
           {text.length} characters, and{" "}
           {0.008 * text.split(" ").filter((word) => word.length > 0).length}{" "}
           minutes to read (125 WPM)
