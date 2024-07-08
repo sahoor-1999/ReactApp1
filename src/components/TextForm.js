@@ -11,27 +11,42 @@ export default function TextForm(props,{ header = "Set the header" }) {
   };
 
   const handelUpClick = () => {
+    if(text===""){
+      props.showAlert("Text not found!", "danger");
+    }else{
     console.log("Update changes");
     setText(text.toUpperCase());
     props.showAlert("Converted into upper case.", "success");
+    }
   };
 
   const handelLoClick = () => {
+    if(text===""){
+      props.showAlert("Text not found!", "danger");
+    }else{
     console.log("Converted to lower case");
     setText(text.toLowerCase());
     props.showAlert("Converted into lower case.", "success");
+    }
   };
 
   const handelClearClick = () => {
+    if(text===""){
+      props.showAlert("Text not found!", "danger");
+    }else{
     setText("");
     setText('');
     setEmails([]);
     setMessage('');
     props.showAlert("Clear text.", "success");
     console.log("Clear done");
+    }
   };
 
   const handelEmailFatch = () => {
+    if(text===""){
+      props.showAlert("Text not found!", "danger");
+    }else{
     const words = text.split(" ");
     const emailList = [];
     for (const word of words) {
@@ -48,16 +63,25 @@ export default function TextForm(props,{ header = "Set the header" }) {
       props.showAlert("Email not found from the text.", "danger");
       console.log("No emails found");
     }
+  }
   };
 
     const handelCopyText = ()=> {
       var text = document.getElementById("myBox")
+      if(text.value.length===0){
+        props.showAlert("Text not found!", "danger");
+      }else{
       text.select();
       navigator.clipboard.writeText(text.value)
+      document.getSelection().removeAllRanges();
       props.showAlert("Cliped to clipboard!", "success");
+      }
     }
 
     const handelExtraSpace = () => {
+      if(text===""){
+        props.showAlert("Text not found!", "danger");
+      }else{
       // Count the spaces
     const spaceCount = (text.match(/ /g) || []).length;
       // Remove extra spaces
@@ -71,6 +95,9 @@ export default function TextForm(props,{ header = "Set the header" }) {
         props.showAlert("No extra space found.","info")
       }
     }
+    }
+
+    
   return (
     <>
       <div className="container" >
@@ -85,22 +112,22 @@ export default function TextForm(props,{ header = "Set the header" }) {
             onChange={handelOnChange}
           ></textarea>
           <div className="container my-2"  >
-          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelUpClick}>
+          <button disabled={text.length===0} className="btn btn-primary btn-sm mx-1 my-2" onClick={handelUpClick}>
             Convert to Upper case
           </button>
-          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelLoClick}>
+          <button disabled={text.length===0} className="btn btn-primary btn-sm mx-1 my-2" onClick={handelLoClick}>
             Convert to Lower case
           </button>
-          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelExtraSpace}>
+          <button disabled={text.length===0} className="btn btn-primary btn-sm mx-1 my-2" onClick={handelExtraSpace}>
             Remove Extra Space
           </button>
-          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelClearClick}>
+          <button disabled={text.length===0} className="btn btn-primary btn-sm mx-1 my-2" onClick={handelClearClick}>
             Clear Text
           </button>
-          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelEmailFatch}>
+          <button disabled={text.length===0} className="btn btn-primary btn-sm mx-1 my-2" onClick={handelEmailFatch}>
             Fetch Email
           </button>
-          <button className="btn btn-primary btn-sm mx-1 my-2" onClick={handelCopyText}>
+          <button disabled={text.length===0} className="btn btn-primary btn-sm mx-1 my-2" onClick={handelCopyText}>
             Copy All
           </button>
           </div>
@@ -110,13 +137,13 @@ export default function TextForm(props,{ header = "Set the header" }) {
       <div className="container">
         <h5 style={{color:props.mode==='dark'?'white':'black'}}>Text Details</h5>
         <p style={{color:props.mode==='dark'?'yellow':'black'}}>
-          {text.split(" ").filter((word) => word.length > 0).length} words,{" "}
+          {text.split(" ").filter((word) => {return word.length !==0}).length} word {" "}
           {text.length} characters, and{" "}
           {0.008 * text.split(" ").filter((word) => word.length > 0).length}{" "}
           minutes to read (125 WPM)
         </p>
         <h5 style={{color:props.mode==='dark'?'white':'black'}}>Text Preview</h5>
-        <p style={{color:props.mode==='dark'?'yellow':'black'}}>{text.length>0?text:"Enter text on the above to preview"}</p>
+        <p style={{color:props.mode==='dark'?'yellow':'black'}}>{text.length>0?text:"Nothing to preview..."}</p>
 
         {emails.length > 0 && (
           <div>

@@ -1,40 +1,45 @@
-import React, { useState } from "react";
+ import React from "react";
 
-export default function About() {
+export default function About(props) {
 
-  const [myStyle, setMyStyle] = useState({
-    color: 'black',
-    backgroundColor: 'white'
-  })
+  // const [myStyle, setMyStyle] = useState({
+  //   color: 'black',
+  //   backgroundColor: 'white'
+  // })
 
   // const [button, setButton] = useState({
   //   color:'black'
   // })
 
-  const convertDarkMode = ()=>{
-    if(myStyle.color==='black')
-      setMyStyle({
-        color:'white',
-        backgroundColor:'black'
-      })
+  // const convertDarkMode = ()=>{
+  //   if(myStyle.color==='black')
+  //     setMyStyle({
+  //       color:'white',
+  //       backgroundColor:'black'
+  //     })
       
-  }
+  // }
 
-  const convertLightMode = ()=>{
-    if(myStyle.color==='white'){
-      setMyStyle({
-        color:'black',
-        backgroundColor:'white'
-      })
-    }
+  // const convertLightMode = ()=>{
+  //   if(myStyle.color==='white'){
+  //     setMyStyle({
+  //       color:'black',
+  //       backgroundColor:'white'
+  //     })
+  //   }
+  // }
+
+  let myStyle = {
+    color:props.mode=== 'dark'?'white':'black',
+    backgroundColor:props.mode=== 'dark'?'#042743':'white'
   }
 
   return (
     <>
-      <div className="container" style={myStyle}>
+      <div className="container">
         <h5>About Text-Utils</h5>
         <div className="accordion" id="accordionExample">
-          <div className="accordion-item" style={myStyle}>
+          <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
                 className="accordion-button"
@@ -53,9 +58,8 @@ export default function About() {
               className="accordion-collapse collapse show"
               aria-labelledby="headingOne"
               data-bs-parent="#accordionExample"
-              style={myStyle}
             >
-              <div className="accordion-body">
+              <div className="accordion-body" style={myStyle}>
                 <strong>This is the first item's accordion body.</strong> It is
                 shown by default, until the collapse plugin adds the appropriate
                 classNamees that we use to style each element. These classNamees
@@ -68,7 +72,7 @@ export default function About() {
               </div>
             </div>
           </div>
-          <div className="accordion-item" style={myStyle}>
+          <div className="accordion-item">
             <h2 className="accordion-header" id="headingTwo">
               <button
                 className="accordion-button collapsed"
@@ -88,7 +92,7 @@ export default function About() {
               aria-labelledby="headingTwo"
               data-bs-parent="#accordionExample"
             >
-              <div className="accordion-body">
+              <div className="accordion-body" style={myStyle}>
                 <strong>This is the second item's accordion body.</strong> It is
                 hidden by default, until the collapse plugin adds the
                 appropriate classNamees that we use to style each element. These
@@ -96,12 +100,12 @@ export default function About() {
                 showing and hiding via CSS transitions. You can modify any of
                 this with custom CSS or overriding our default variables. It's
                 also worth noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
+                <code code>.accordion-body</code>, though the transition does limit
                 overflow.
               </div>
             </div>
           </div>
-          <div className="accordion-item" style={myStyle}>
+          <div className="accordion-item" >
             <h2 className="accordion-header" id="headingThree">
               <button
                 className="accordion-button collapsed"
@@ -121,26 +125,25 @@ export default function About() {
               aria-labelledby="headingThree"
               data-bs-parent="#accordionExample"
             >
-              <div className="accordion-body">
+              <div className="accordion-body" style={myStyle}>
                 <strong>This is the third item's accordion body.</strong> It is
                 hidden by default, until the collapse plugin adds the
                 appropriate classNamees that we use to style each element. These
                 classNamees control the overall appearance, as well as the
                 showing and hiding via CSS transitions. You can modify any of
                 this with custom CSS or overriding our default variables. It's
-                also worth noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
+                also worth noting that just about any HTML can go within the, though the transition does limit
                 overflow.
               </div>
             </div>
           </div>
         </div>
-        <button type="button" className="btn btn-outline-dark btn-sm my-2" onClick={convertLightMode}>
+        {/* <button type="button" className="btn btn-outline-dark btn-sm my-2" onClick={convertLightMode}>
           Enable Light Mode
         </button>
         <button type="button" className="btn btn-secondary btn-sm mx-2" onClick={convertDarkMode}>
           Enable Dark Mode
-        </button>
+        </button> */}
       </div>
     </>
   );
